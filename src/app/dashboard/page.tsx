@@ -5,13 +5,18 @@ import { prisma } from '@/lib/prisma'
 import { Header } from '@/components/header'
 import { MeetingList } from '@/components/dashboard/meeting-list'
 import { UploadButton } from '@/components/dashboard/upload-button'
+import type { Meeting, MeetingSummary } from '@/types'
 
-async function getMeetings(userId: string) {
+async function getMeetings(userId: string): Promise<Meeting[]> {
   const meetings = await prisma.meeting.findMany({
     where: { userId },
     orderBy: { createdAt: 'desc' },
   })
-  return meetings
+
+  return meetings.map(meeting => ({
+    ...meeting,
+    summaryJson: meeting.summaryJson as MeetingSummary
+  }))
 }
 
 export default async function DashboardPage() {
