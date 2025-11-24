@@ -41,7 +41,7 @@ export default async function MeetingPage({ params }: { params: { id: string } }
     redirect('/dashboard')
   }
 
-  const summary = meeting.summaryJson as MeetingSummary
+  const summary = meeting.summaryJson as unknown as MeetingSummary
 
   return (
     <div className="min-h-screen bg-background">

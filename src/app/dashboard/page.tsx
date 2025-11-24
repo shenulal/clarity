@@ -15,7 +15,7 @@ async function getMeetings(userId: string): Promise<Meeting[]> {
 
   return meetings.map(meeting => ({
     ...meeting,
-    summaryJson: meeting.summaryJson as MeetingSummary
+    summaryJson: meeting.summaryJson as unknown as MeetingSummary
   }))
 }
 
